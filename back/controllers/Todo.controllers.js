@@ -22,9 +22,7 @@ module.exports.TodoController = {
   },
   deleteTodo: async (req, res) => {
     try {
-      const deletedTodo = await Todo.findByIdAndDelete({
-        _id: req.body.id,
-      });
+      const deletedTodo = await Todo.findByIdAndDelete(req.params.id);
       res.json(deletedTodo);
     } catch (err) {
       res.json(err);
@@ -32,7 +30,7 @@ module.exports.TodoController = {
   },
   updateTodo: async (req, res) => {
     try {
-      const updatedTodo = await Todo.findByIdAndUpdate(req.body.id, {
+      const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {
         doned: req.body.doned,
       });
       res.json(updatedTodo);

@@ -6,7 +6,7 @@ const Todo = () => {
   const [checked, setChecked] = React.useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:4000/")
+    fetch("http://localhost:4000/todos/")
       .then((data) => data.json())
       .then((todos) => {
         setTodos(todos);
@@ -14,11 +14,10 @@ const Todo = () => {
   }, [todos]);
 
   const handleAddTodo = (id) => {
-    fetch("http://localhost:4000/", {
+    fetch("http://localhost:4000/todos/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        id: id,
         text: text,
         doned: false,
       }),
@@ -27,22 +26,17 @@ const Todo = () => {
   };
 
   const handleDeleteTodo = (id) => {
-    fetch("http://localhost:4000/", {
+    fetch(`http://localhost:4000/todos/delete/${id}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: todos[id]._id,
-      }),
     });
   };
 
   const handleChange = (id) => {
     setChecked(!checked);
-    fetch("http://localhost:4000/", {
+    fetch(`http://localhost:4000/todos/update/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        id: todos[id]._id,
         doned: checked,
       }),
     });
@@ -65,12 +59,12 @@ const Todo = () => {
                 <input
                   type="checkbox"
                   checked={todos[index].doned}
-                  onChange={() => handleChange(index)}
+                  onChange={() => handleChange(todo._id)}
                 />
               </div>
               <div className="todo_text">{todo.text}</div>
               <div className="todo_delete">
-                <button onClick={() => handleDeleteTodo(index)}>x</button>
+                <button onClick={() => handleDeleteTodo(todo._id)}>x</button>
               </div>
             </div>
           );
