@@ -17,7 +17,7 @@ const connectAndStartServer = async () => {
     try{
         await mongoose.connect(MONGO_SERVER)
         app.listen(PORT, () => {
-            console.log(`Server started: http://localhost:${PORT}`);
+            console.log(`Server started: http://localhost:${PORT}/todos`);
         })
     } catch(err) {
         console.log(`Error ${err}`);

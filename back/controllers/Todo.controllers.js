@@ -5,7 +5,6 @@ module.exports.TodoController = {
     try {
       const addedTodo = await Todo.create({
         text: req.body.text,
-        doned: req.body.doned,
       });
       res.json(addedTodo);
     } catch (err) {

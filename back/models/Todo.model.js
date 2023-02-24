@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 
 const TodoSchema = mongoose.Schema({
-  id: Number,
   text: String,
-  doned: Boolean,
+  doned: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Todo = mongoose.model("Todo", TodoSchema);
